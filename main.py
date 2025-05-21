@@ -1,4 +1,5 @@
 import requests
+from send_email import send_email
 
 api_key = "af5753fe4c814362a643c9deefaaf072"
 
@@ -15,10 +16,35 @@ content = request.json()
 articles = content["articles"]
 articleSize = len(content["articles"])
 
-print(articles)
-print(articleSize)
+articleTitleList = []
+articleDescriptionList = []
+
+#print(articles)
+#print(articleSize)
+
+# for article in articles:
+#     #print(article)
+#     #print(article["title"])
+#     articleTitleList.append(article["title"])
+#     articleDescriptionList.append(article["description"])
+#     #print(article["description"])
+#
+# #print(articleTitleList)
+
+
+message_body = ""
 
 for article in articles:
-    #print(article)
-    #print(article["description"])
-    print(article["title"])
+    title = article.get("title", "No Title")
+    description = article.get("description", "No Description")
+    message_body += f"Title: {title}\nDescription: {description}\n\n"
+
+message = f"""\
+Subject: Daily News for You!
+
+{message_body}
+"""
+
+#print(message)
+send_email(message)
+
