@@ -16,8 +16,8 @@ content = request.json()
 articles = content["articles"]
 articleSize = len(content["articles"])
 
-articleTitleList = []
-articleDescriptionList = []
+#articleTitleList = []
+#articleDescriptionList = []
 
 #print(articles)
 #print(articleSize)
