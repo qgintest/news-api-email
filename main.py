@@ -2,10 +2,14 @@ import requests
 from send_email import send_email
 
 api_key = "af5753fe4c814362a643c9deefaaf072"
+topic = "tesla"
 
 url = (f"https://newsapi.org"
-       f"/v2/everything?q=tesla&from=2025-04-20&sortBy=publishedAt&"
-       f"apiKey={api_key}")
+       f"/v2/everything?"
+       f"q={topic}&"
+       f"from=2025-05-20&"
+       f"sortBy=publishedAt&"
+       f"apiKey={api_key}&language=en")
 
 # headers = {
 #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
@@ -34,10 +38,11 @@ articleSize = len(content["articles"])
 
 message_body = ""
 
-for article in articles:
+for article in articles[:5]:
     title = article.get("title", "No Title")
     description = article.get("description", "No Description")
-    message_body += f"Title: {title}\nDescription: {description}\n\n"
+    url = article.get("url")
+    message_body += f"Title: {title}\nDescription: {description}\n {url} \n\n"
 
 message = f"""\
 Subject: Daily News for You!
